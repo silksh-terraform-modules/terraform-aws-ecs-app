@@ -92,6 +92,19 @@ variable "mount_points" {
   default = []
 }
 
+variable "efs_volume_name" {
+  default = ""
+}
+
+variable "efs_file_system_id" {
+  default = ""
+}
+
+variable "efs_access_point_id" {
+  default = ""
+}
+
+
 variable "cluster_id" {
   default = ""
   description = "cluster ID"
@@ -241,6 +254,16 @@ variable "healthcheck" {
     startPeriod = number
   })
   default = null
+}
+
+variable "volume_name" {
+  default = ""
+  description = "volume name, same as sourceVolume in mount_points"
+}
+
+variable "host_path" {
+  default = ""
+  description = "local path on host (volume mounted in fstab or local directory)"
 }
 
 variable local_volumes {
