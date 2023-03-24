@@ -70,34 +70,26 @@ resource "aws_ecs_task_definition" "this" {
     create_before_destroy = true
   }
 
-  dynamic "volume" {
-    for_each = length(var.volume_name) > 0 ? [1] : []
+    dynamic "volume" {
+    for_each = var.local_volumes
     content {
-      name = var.volume_name
-      host_path = var.host_path
+      name = volume.value.volume_name
+      host_path = volume.value.host_path
       
     }
   }
 
   dynamic "volume" {
-    for_each = length(var.efs_volume_name) > 0 ? [1] : []
+    for_each = var.efs_volumes
     content {
-      name = var.efs_volume_name
+      name = volume.value.efs_volume_name
 
-      dynamic "efs_volume_configuration" {
-        for_each = length(var.efs_file_system_id) > 0 ? [1] : []
+      efs_volume_configuration {
+        file_system_id = volume.value.efs_file_system_id
+        transit_encryption = "ENABLED"
 
-        content {
-          file_system_id = var.efs_file_system_id
-          transit_encryption = "ENABLED"
-
-          dynamic "authorization_config" {
-            for_each = length(var.efs_access_point_id) > 0 ? [1] : []
-
-            content {
-              access_point_id = var.efs_access_point_id
-            }
-          }
+        authorization_config {
+          access_point_id = volume.value.efs_access_point_id
         }
       }
     }
