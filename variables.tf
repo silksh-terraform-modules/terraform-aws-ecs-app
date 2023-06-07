@@ -284,3 +284,9 @@ variable efs_volumes {
   # }]
   description = "list of efs volumes"
 }
+
+variable "stop_timeout" {
+  default = null
+  description = "stop timeout before SIGKILL"
+  type = number
+}
