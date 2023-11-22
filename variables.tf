@@ -265,3 +265,11 @@ variable "host_path" {
   default = ""
   description = "local path on host (volume mounted in fstab or local directory)"
 }
+
+variable "load_balancing_algorithm_type" {
+  default = "round_robin"
+}
+
+variable "load_balancing_algorithm_type_secondary" {
+  default = "round_robin"
+}
