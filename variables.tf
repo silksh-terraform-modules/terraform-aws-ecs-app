@@ -265,3 +265,28 @@ variable "host_path" {
   default = ""
   description = "local path on host (volume mounted in fstab or local directory)"
 }
+
+variable local_volumes {
+  default     = []
+  # default     = [{
+  #   volume_name = "string"
+  #   host_path   = "string"
+  # }]
+  description = "list of local volumes"
+}
+
+variable efs_volumes {
+  default     = []
+  # default     = [{
+  #   efs_volume_name     = "string"
+  #   efs_file_system_id  = "string"
+  #   efs_access_point_id = "string"
+  # }]
+  description = "list of efs volumes"
+}
+
+variable "stop_timeout" {
+  default = null
+  description = "stop timeout before SIGKILL"
+  type = number
+}

@@ -45,13 +45,24 @@ module "ecs-app-example" {
   target_group_health_matcher = "200"
   target_group_health_path = "/"
 
-  efs_volume_name = local.efs_volume_name
-  efs_file_system_id = data.terraform_remote_state.infra.outputs.efs_file_system_id
-  efs_access_point_id = data.terraform_remote_state.infra.outputs.efs_access_point_ids[local.efs_volume_name]
-
+  efs_volumes = [{
+    efs_volume_name = local.efs_volume_name
+    efs_file_system_id = data.terraform_remote_state.infra.outputs.efs_file_system_id
+    efs_access_point_id = data.terraform_remote_state.infra.outputs.efs_access_point_ids[local.efs_volume_name]
+  },
+  {
+    efs_volume_name = local.efs_volume_name_2
+    efs_file_system_id = data.terraform_remote_state.infra.outputs.efs_file_system_id
+    efs_access_point_id = data.terraform_remote_state.infra.outputs.efs_access_point_ids[local.efs_volume_name_2]
+  }]
   mount_points = [{
     containerPath = "/data/",
     sourceVolume = local.efs_volume_name,
+    readOnly = false
+  },
+  {
+    containerPath = "/another/data/",
+    sourceVolume = local.efs_volume_name_2,
     readOnly = false
   }]
 

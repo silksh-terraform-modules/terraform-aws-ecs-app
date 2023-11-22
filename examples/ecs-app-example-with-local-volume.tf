@@ -49,9 +49,22 @@ module "ecs-app-example" {
     containerPath = "/data/",
     sourceVolume = "volume-name",
     readOnly = false
+  },
+  {
+    containerPath = "/another/data/"
+    sourceVolume = "another-volume"
+    readOnly = false
   }]
 
-  volume_name = "volume-name"
-  host_path = "/data-dir"
+  local_volumes = [
+    {
+      volume_name = "volume-name"
+      host_path = "/host/path"
+    },
+    {
+      volume_name = "another-volume"
+      host_path = "/another/host/path"
+    }
+  ]
 
 }
