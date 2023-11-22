@@ -52,6 +52,11 @@ variable "host_port" {
   description = "port binded outside - 0 means dynamic port assignment"
 }
 
+variable "host_port_secondary" {
+  default = "0"
+  description = "port binded outside - 0 means dynamic port assignment, secondary port"
+}
+
 variable "service_protocol" {
   default = "tcp"
 }
@@ -61,7 +66,8 @@ variable "cloudwatch_log_group" {
 }
 
 variable "cloudwatch_multiline_pattern" {
-  default = "^20"
+  # default = "^20"
+  default = ""
 }
 
 variable "ssm_variables" {
@@ -195,6 +201,10 @@ variable "target_group_health_port" {
   default = "traffic-port"
 }
 
+variable "target_group_health_port_secondary" {
+  default = "traffic-port"
+}
+
 variable "target_group_health_timeout" {
   default = 5
 }
@@ -264,4 +274,15 @@ variable "volume_name" {
 variable "host_path" {
   default = ""
   description = "local path on host (volume mounted in fstab or local directory)"
+}
+
+variable "enable_execute_command" {
+  default = false
+  description = "enable or no ecs exec"
+}
+
+variable "stop_timeout" {
+  default = null
+  description = "stop timeout before SIGKILL"
+  type = number
 }
