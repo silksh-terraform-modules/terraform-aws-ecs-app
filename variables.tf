@@ -207,6 +207,10 @@ variable "lb_listener_arn_secondary" {
   default = ""
 }
 
+variable "lb_listener_secondary_enabled"{
+  default = false
+}
+
 variable "stickiness_cookie_duration" {
   default = 86400
 }
