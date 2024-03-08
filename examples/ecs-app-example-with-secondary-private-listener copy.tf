@@ -35,6 +35,7 @@ module "ecs-app-example" {
   zone_id_secondary = data.aws_route53_zone.zone_private.zone_id
   service_dns_name_secondary = "example.${var.tld}"
 
+  lb_listener_secondary_enabled = true
   lb_dns_name_secondary = aws_lb.internal.dns_name
   lb_zone_id_secondary = aws_lb.internal.zone_id
   lb_listener_arn_secondary = aws_lb_listener.http_internal.arn
