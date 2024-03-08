@@ -1,5 +1,5 @@
 resource "aws_lb_target_group" "secondary" {
-    count = length(var.lb_listener_secondary_enabled) ? 1 : 0      
+    count = var.lb_listener_secondary_enabled ? 1 : 0      
     deregistration_delay          = var.deregistration_delay
     load_balancing_algorithm_type = var.load_balancing_algorithm_type_secondary
     name                          = "${var.service_name}-${var.env_name}-internal-${substr(uuid(), 0, 3)}"
@@ -35,7 +35,7 @@ resource "aws_lb_target_group" "secondary" {
 
 resource "aws_lb_listener_rule" "secondary" {
   
-  count = length(var.lb_listener_secondary_enabled) ? 1 : 0
+  count = var.lb_listener_secondary_enabled ? 1 : 0
 
   listener_arn = var.lb_listener_arn_secondary
   
