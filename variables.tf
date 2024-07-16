@@ -277,3 +277,8 @@ variable "load_balancing_algorithm_type" {
 variable "load_balancing_algorithm_type_secondary" {
   default = "round_robin"
 }
+
+variable "enable_execute_command" {
+  default = false
+  description = "enable or no ecs exec"
+}
