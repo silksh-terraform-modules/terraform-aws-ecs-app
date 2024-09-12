@@ -1,5 +1,5 @@
 output "app_fqdn" {
-  value = aws_route53_record.this[0].fqdn
+  value = var.service_dns_name
 }
 
 output "app_fqdn_secondary" {
@@ -8,4 +8,20 @@ output "app_fqdn_secondary" {
 
 output "aws_lb_target_group_arn" {
   value = aws_lb_target_group.this[0].arn
+}
+
+variable "security_header" {
+  type = object({
+    header_name   = string
+    values = list(string)
+  })
+  default = null
+}
+
+variable "security_header_secondary" {
+  type = object({
+    header_name   = string
+    values = list(string)
+  })
+  default = null
 }

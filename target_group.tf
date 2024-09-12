@@ -41,13 +41,24 @@ resource "aws_lb_listener_rule" "this" {
   condition {
     host_header {
       values = (
-        length(var.other_service_dns_names) > 0 ? 
+        length(var.other_service_dns_names) > 0 ?
           concat(
-            [aws_route53_record.this[0].name],
+            [var.service_dns_name],
             var.other_service_dns_names
           ) :
-        [aws_route53_record.this[0].name]
+        [var.service_dns_name]
       )
+    }
+  }
+
+  dynamic "condition" {
+    for_each = var.security_header != null ? [var.security_header] : []
+
+    content {
+      http_header {
+        http_header_name   = condition.value.header_name
+        values = condition.value.values
+      }
     }
   }
 
